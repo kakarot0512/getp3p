@@ -20,13 +20,13 @@ jobs:
             --data 'captcha=129188' | grep -oP 'gy/.+/p3p' | cut -d '/' -f 2 > pathid.txt
           
           # 读取pathid.txt文件以获取path ID
-          PATH_ID=$(cat pathid.txt)
+          PATH_ID=$(cat pathid.txt | tr -d ' \n')
           echo "Extracted path ID: $PATH_ID"
       
       - name: GET request with Extracted Path ID and Save Result
         run: |
           # 使用curl发送GET请求并保存结果
-          curl "http://103.45.68.47:678/gy/${PATH_ID}/p3p端口.php" > tvport.txt
+          curl -v "http://103.45.68.47:678/gy/${PATH_ID}/p3p端口.php" > tvport.txt
       
       - name: Commit and Push Result Files
         run: |
