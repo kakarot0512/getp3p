@@ -30,7 +30,7 @@ jobs:
         run: |
           # 使用curl发送GET请求并保存结果
           PATH_ID=$(cat pathid.txt | tr -d ' \n\r') && curl "http://103.45.68.47:678/gy/${PATH_ID}/p3p端口.php" > tvport.txt
-          echo "Extracted P3P info: $$(cat tvport.txt)"
+          echo "Extracted P3P info: $(cat tvport.txt)"
       
       - name: Commit and Push Result Files
         run: |
