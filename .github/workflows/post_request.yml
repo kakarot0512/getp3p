@@ -26,7 +26,7 @@ jobs:
       - name: GET request with Extracted Path ID and Save Result
         run: |
           # 使用curl发送GET请求并保存结果
-          PATH_ID=$(cat pathid.txt | tr -d ' \n\r') && curl -v "http://103.45.68.47:678/gy/${PATH_ID}/p3p端口.php" > tvport.txt
+          PATH_ID=$(cat pathid.txt | tr -d ' \n\r') && curl "http://103.45.68.47:678/gy/${PATH_ID}/p3p端口.php" > tvport.txt
       
       - name: Commit and Push Result Files
         run: |
