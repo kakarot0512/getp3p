@@ -20,7 +20,7 @@ jobs:
             --data 'captcha=129188' | grep -oP 'gy/.+/p3p' | cut -d '/' -f 2 > pathid.txt
           
           # 读取pathid.txt文件以获取path ID
-          PATH_ID=$(cat pathid.txt | tr -d ' \n')
+          PATH_ID=$(cat pathid.txt | tr -d ' \n\r')
           echo "Extracted path ID: $PATH_ID"
       
       - name: GET request with Extracted Path ID and Save Result
