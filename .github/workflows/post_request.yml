@@ -1,6 +1,9 @@
-name: Fetch, Extract, and Save Website Data
+name: Fetch and Save gy-fabu
 
-on: [workflow_dispatch]  # 或你可设其他触发条件
+on:
+  workflow_dispatch:  # 手动触发
+  schedule:           # 定时触发
+    - cron: '0 */6 * * *'  # 每6小时，每天的第0分钟运行
 
 jobs:
   fetch_extract_save_commit:
