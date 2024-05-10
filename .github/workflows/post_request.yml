@@ -1,19 +1,37 @@
-name: POST Request Action
+name: Fetch, Extract, and Save Website Data
 
-on: [workflow_dispatch] # 或者你可以设定其他触发条件
+on: [workflow_dispatch]  # 或你可设其他触发条件
 
 jobs:
-  post_request_job:
+  fetch_extract_save_commit:
     runs-on: ubuntu-latest
-    name: Send POST request to specified URL
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Send POST request
+      
+      - name: POST request and Extract Path ID
         run: |
+          # 使用curl发送带有UA和Cookie的POST请求并截取path ID
           curl --request POST \
             --url 'http://103.45.68.47:678/gy/gy-fabu.php' \
             --header 'Content-Type: application/x-www-form-urlencoded' \
             --header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3' \
             --header 'Cookie: regimcode_162100bbs=129188' \
-            --data 'captcha=129188'
+            --data 'captcha=129188' | grep -oP 'gy/.+/p3p' | cut -d '/' -f 2 > pathid.txt
+          
+          # 读取pathid.txt文件以获取path ID
+          PATH_ID=$(cat pathid.txt)
+          echo "Extracted path ID: $PATH_ID"
+      
+      - name: GET request with Extracted Path ID and Save Result
+        run: |
+          # 使用curl发送GET请求并保存结果
+          curl "http://103.45.68.47:678/gy/${PATH_ID}/p3p端口.php" > tvport.txt
+      
+      - name: Commit and Push Result Files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add pathid.txt tvport.txt
+          git commit -m "Add extracted path ID and tvport result" -a
+          git push
