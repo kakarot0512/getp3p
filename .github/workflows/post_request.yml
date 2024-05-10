@@ -1,0 +1,19 @@
+name: POST Request Action
+
+on: [workflow_dispatch] # 或者你可以设定其他触发条件
+
+jobs:
+  post_request_job:
+    runs-on: ubuntu-latest
+    name: Send POST request to specified URL
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Send POST request
+        run: |
+          curl --request POST \
+            --url 'http://103.45.68.47:678/gy/gy-fabu.php' \
+            --header 'Content-Type: application/x-www-form-urlencoded' \
+            --header 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3' \
+            --header 'Cookie: regimcode_162100bbs=129188' \
+            --data 'captcha=129188'
