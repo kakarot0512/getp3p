@@ -3,7 +3,7 @@ name: Fetch and Save gy-fabu
 on:
   workflow_dispatch:  # 手动触发
   schedule:           # 定时触发
-   - cron: '0 */3 * * *'  # 每3小时，每天的第0分钟运行
+    - cron: '0 */3 * * *'  # 每3小时，每天的第0分钟运行
 
 jobs:
   fetch_extract_save_commit:
