@@ -1,1 +1,7 @@
-159:20615<br>169:24350<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+<html>
+<head><title>302 Found</title></head>
+<body>
+<center><h1>302 Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
